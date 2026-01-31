@@ -336,8 +336,8 @@ export function StartupDashboard({ stats, clients, projects, invoices, team }: S
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
-            {projects.filter(p => p.status !== 'completed').slice(0, 3).map((project) => (
-              <div key={project.id} className="border-b pb-3 last:border-0 last:pb-0">
+            {projects.filter(p => p.status !== 'completed').slice(0, 3).map((project, index) => (
+              <div key={`${project.id}-${index}`} className="border-b pb-3 last:border-0 last:pb-0">
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex-1">
                     <p className="font-medium">{project.name}</p>

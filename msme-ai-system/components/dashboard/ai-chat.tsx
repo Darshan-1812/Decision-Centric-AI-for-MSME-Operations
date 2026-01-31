@@ -13,7 +13,7 @@ import { Brain, Send, User, Bot, Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface AIChatProps {
-  agentType: 'task_coordinator' | 'resource_optimizer' | 'inventory_monitor' | 'general'
+  agentType: 'task_coordinator' | 'resource_optimizer' | 'inventory_monitor' | 'general' | 'client_agent' | 'project_agent' | 'staff_agent' | 'decision_agent'
   title: string
   placeholder?: string
 }
@@ -39,10 +39,30 @@ const agentConfig = {
     bgColor: 'bg-primary/10',
     description: 'General operations assistant',
   },
+  client_agent: {
+    color: 'text-blue-600',
+    bgColor: 'bg-blue-100',
+    description: 'Manages client relationships and payments',
+  },
+  project_agent: {
+    color: 'text-purple-600',
+    bgColor: 'bg-purple-100',
+    description: 'Tracks project timelines and progress',
+  },
+  staff_agent: {
+    color: 'text-green-600',
+    bgColor: 'bg-green-100',
+    description: 'Manages team workload and skills',
+  },
+  decision_agent: {
+    color: 'text-amber-600',
+    bgColor: 'bg-amber-100',
+    description: 'Coordinates all agents and provides strategic recommendations',
+  },
 }
 
 export function AIChat({ agentType, title, placeholder }: AIChatProps) {
-  const config = agentConfig[agentType]
+  const config = agentConfig[agentType] || agentConfig.general
 
   const { messages, sendMessage, status, input, setInput } = useChat({
     transport: new DefaultChatTransport({
@@ -60,7 +80,7 @@ export function AIChat({ agentType, title, placeholder }: AIChatProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!input.trim() || status === 'streaming') return
+    if (!input || !input.trim() || status === 'streaming') return
     sendMessage({ text: input })
     setInput('')
   }
@@ -202,7 +222,7 @@ export function AIChat({ agentType, title, placeholder }: AIChatProps) {
       <div className="p-4 border-t">
         <form onSubmit={handleSubmit} className="flex gap-2">
           <Input
-            value={input}
+            value={input || ''}
             onChange={(e) => setInput(e.target.value)}
             placeholder={placeholder || "Ask the AI agent..."}
             disabled={status === 'streaming'}
@@ -210,7 +230,7 @@ export function AIChat({ agentType, title, placeholder }: AIChatProps) {
           <Button 
             type="submit" 
             size="icon"
-            disabled={!input.trim() || status === 'streaming'}
+            disabled={!input || !input.trim() || status === 'streaming'}
           >
             <Send className="h-4 w-4" />
           </Button>

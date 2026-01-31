@@ -75,8 +75,8 @@ async function ProjectsContent() {
   
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
-      {projects.map((project) => (
-        <Card key={project.id} className="hover:shadow-md transition-shadow">
+      {projects.map((project, index) => (
+        <Card key={`${project.id}-${index}`} className="hover:shadow-md transition-shadow">
           <CardHeader>
             <div className="flex items-start justify-between">
               <div className="flex-1">

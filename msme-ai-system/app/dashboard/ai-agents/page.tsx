@@ -107,8 +107,8 @@ export default async function AIAgentsPage({
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
-            {projectRequests.map((request) => (
-              <Card key={request.id} className={
+            {projectRequests.map((request, index) => (
+              <Card key={`${request.id}-${index}`} className={
                 request.priority_level === 'CRITICAL' ? 'border-red-300 bg-red-50' :
                 request.priority_level === 'HIGH' ? 'border-orange-300 bg-orange-50' :
                 'border-gray-200'
@@ -267,6 +267,10 @@ export default async function AIAgentsPage({
             </div>
           </CardContent>
         </Card>
+        
+        {/* Active Agent Cards */}
+        <div className="grid gap-4 md:grid-cols-2">
+          <Card className="border-green-200 bg-green-50/50">
             <CardContent className="pt-6">
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-100">

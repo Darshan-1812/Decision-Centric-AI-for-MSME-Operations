@@ -141,8 +141,20 @@ export function TaskList({ tasks, showAssignee = true, onTaskUpdate }: TaskListP
                     {showAssignee && task.assignee && (
                       <div className="flex items-center gap-1 text-xs text-muted-foreground">
                         <User className="h-3 w-3" />
-                        {task.assignee.full_name || task.assignee.email}
+                        {task.assignee.name || task.assignee.full_name || task.assignee.email}
                       </div>
+                    )}
+                    
+                    {(task as any).project_name && (
+                      <Badge variant="secondary" className="text-xs">
+                        {(task as any).project_name}
+                      </Badge>
+                    )}
+                    
+                    {(task as any).estimated_days && (
+                      <span className="text-xs text-muted-foreground">
+                        Est: {(task as any).estimated_days} days
+                      </span>
                     )}
                     
                     {task.due_date && (
