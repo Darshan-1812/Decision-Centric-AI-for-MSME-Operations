@@ -1,0 +1,25 @@
+# Decision-Centric AI for MSME Operations
+# Root requirements file - install all dependencies
+
+# Core Python dependencies
+python-dotenv>=1.0.0
+pydantic>=2.0.0
+
+# Backend
+fastapi>=0.100.0
+uvicorn>=0.23.0
+python-multipart>=0.0.6
+
+# AI/ML
+google-generativeai>=0.8.0
+
+# Email
+imapclient>=2.3.1
+
+# Utilities
+requests>=2.31.0
+tqdm>=4.65.0
+
+# For development
+pytest>=7.4.0
+httpx>=0.24.0
