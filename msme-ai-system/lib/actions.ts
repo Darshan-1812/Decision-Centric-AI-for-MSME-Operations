@@ -7,6 +7,29 @@ import type { Task, Resource, AIDecision, Profile, DashboardStats, Client, Proje
 // Backend API URL - uses environment variable for production
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
+// Safe fetch wrapper with timeout and error handling
+async function safeFetch(url: string, options?: RequestInit): Promise<Response | null> {
+  try {
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
+    
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+    })
+    
+    clearTimeout(timeoutId)
+    return response
+  } catch (error: any) {
+    if (error.name === 'AbortError') {
+      console.log(`Request to ${url} timed out`)
+    } else {
+      console.log(`Fetch error for ${url}:`, error.message || error)
+    }
+    return null
+  }
+}
+
 // DECISION AGENT - INDUSTRY-STANDARD PRIORITY SCORING RULES
 function calculatePriorityScore(request: ProjectRequest, teamLoad: number): { score: number, level: string, reasoning: string[], factors: PriorityFactors } {
   const reasoning: string[] = []
@@ -135,12 +158,12 @@ export async function getStaffMembers() {
 export async function getTasks(status?: string) {
   try {
     // Fetch projects with tasks from backend
-    const response = await fetch(`${API_URL}/api/autonomous/projects`, {
+    const response = await safeFetch(`${API_URL}/api/autonomous/projects`, {
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json' }
     })
-    console.log('Fetching tasks from backend, status:', response.status)
-    if (response.ok) {
+    if (response?.ok) {
+      console.log('Fetching tasks from backend, status:', response.status)
       const data = await response.json()
       const projects = data.projects || []
       
@@ -404,8 +427,8 @@ export async function getDashboardStats(): Promise<DashboardStats> {
 export async function getClients() {
   try {
     // Try to fetch from backend first
-    const response = await fetch(`${API_URL}/api/autonomous/projects`)
-    if (response.ok) {
+    const response = await safeFetch(`${API_URL}/api/autonomous/projects`)
+    if (response?.ok) {
       const data = await response.json()
       // Extract unique clients from projects
       const clientsMap = new Map()
@@ -449,8 +472,8 @@ export async function getClients() {
 export async function getProjects() {
   try {
     // Try to fetch from backend first
-    const response = await fetch(`${API_URL}/api/autonomous/projects`)
-    if (response.ok) {
+    const response = await safeFetch(`${API_URL}/api/autonomous/projects`)
+    if (response?.ok) {
       const data = await response.json()
       const backendProjects = (data.projects || []).map((p: any) => ({
         id: p.id,
@@ -496,8 +519,8 @@ export async function getStartupStats() {
   let backendClients = new Set()
   
   try {
-    const response = await fetch(`${API_URL}/api/autonomous/projects`)
-    if (response.ok) {
+    const response = await safeFetch(`${API_URL}/api/autonomous/projects`)
+    if (response?.ok) {
       const data = await response.json()
       backendProjectCount = data.projects?.length || 0
       data.projects?.forEach((p: any) => {
