@@ -32,7 +32,9 @@ app.add_middleware(
         "http://localhost:3000",  # React app
         "http://localhost:3001",  # Next.js app  
         "http://localhost:3002",  # Alternative port
-        "http://localhost:5173"   # Vite
+        "http://localhost:5173",  # Vite
+        "https://decision-centric-ai-for-msme-operations-2.onrender.com",  # Render frontend
+        "https://decision-centric-ai-for-msme-operations.onrender.com",  # Render backend (for same-origin)
     ],
     allow_credentials=True,
     allow_methods=["*"],
