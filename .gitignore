@@ -14,7 +14,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+# lib/ - removed to allow msme-ai-system/lib/ (Next.js uses this)
 lib64/
 parts/
 sdist/
