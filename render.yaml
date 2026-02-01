@@ -21,9 +21,8 @@ services:
     name: msme-ai-frontend
     env: node
     region: singapore
-    rootDir: msme-ai-system
-    buildCommand: npm install -g pnpm && pnpm install && pnpm run build
-    startCommand: pnpm start
+    buildCommand: cd msme-ai-system && npm install -g pnpm && pnpm install && pnpm run build
+    startCommand: cd msme-ai-system && pnpm start
     envVars:
       - key: NODE_VERSION
         value: 20.11.0
