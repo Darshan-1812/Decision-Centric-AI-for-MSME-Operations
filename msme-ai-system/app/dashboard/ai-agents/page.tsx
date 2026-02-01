@@ -4,6 +4,8 @@ import { Badge } from "@/components/ui/badge"
 import { Brain, Users, Zap, Package, Briefcase, FolderKanban, UserCog, Mail, FileSearch, ArrowRight, CheckCircle2, Clock } from "lucide-react"
 import { getAutomationFlow, getProjectRequests } from "@/lib/actions"
 
+export const dynamic = 'force-dynamic'
+
 export default async function AIAgentsPage({
   searchParams,
 }: {

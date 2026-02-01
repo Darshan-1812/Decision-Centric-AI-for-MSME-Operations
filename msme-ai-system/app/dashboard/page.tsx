@@ -18,6 +18,9 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Badge } from "@/components/ui/badge"
+
+// Force dynamic rendering for this page
+export const dynamic = 'force-dynamic'
 import {
   ClipboardList,
   Package,

@@ -7,6 +7,8 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Briefcase, Mail, Phone, Plus, TrendingUp } from "lucide-react"
 
+export const dynamic = 'force-dynamic'
+
 async function ClientStats() {
   const clients = await getClients()
   const projects = await getProjects()

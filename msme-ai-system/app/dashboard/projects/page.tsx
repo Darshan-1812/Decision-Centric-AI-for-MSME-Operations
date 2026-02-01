@@ -16,6 +16,8 @@ import {
   CheckCircle2
 } from "lucide-react"
 
+export const dynamic = 'force-dynamic'
+
 async function ProjectStats() {
   const projects = await getProjects()
   

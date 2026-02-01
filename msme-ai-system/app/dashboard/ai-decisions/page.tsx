@@ -4,6 +4,8 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Brain } from "lucide-react"
 
+export const dynamic = 'force-dynamic'
+
 export default async function AIDecisionsPage() {
   const decisions = await getAIDecisions()
   

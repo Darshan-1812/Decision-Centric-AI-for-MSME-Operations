@@ -4,6 +4,9 @@ import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { User, CheckCircle2, Clock, AlertTriangle } from "lucide-react"
 
+// Force dynamic rendering for this page
+export const dynamic = 'force-dynamic'
+
 export default async function StaffPage() {
   const [staffMembers, tasks] = await Promise.all([
     getStaffMembers(),

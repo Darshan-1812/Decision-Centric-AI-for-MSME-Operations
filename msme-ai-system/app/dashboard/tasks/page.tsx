@@ -4,6 +4,9 @@ import { CreateTaskDialog } from "@/components/dashboard/create-task-dialog"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
+// Force dynamic rendering for this page
+export const dynamic = 'force-dynamic'
+
 export default async function TasksPage() {
   const [tasks, staffMembers] = await Promise.all([
     getTasks(),

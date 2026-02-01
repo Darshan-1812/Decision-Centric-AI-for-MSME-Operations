@@ -15,6 +15,8 @@ import {
   Download
 } from "lucide-react"
 
+export const dynamic = 'force-dynamic'
+
 async function BillingStats() {
   const invoices = await getInvoices()
   

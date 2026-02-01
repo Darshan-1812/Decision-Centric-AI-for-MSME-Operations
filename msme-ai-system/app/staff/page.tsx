@@ -5,6 +5,9 @@ import { StaffTaskList } from "@/components/staff/staff-task-list"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { CheckCircle2, Clock, AlertTriangle } from "lucide-react"
 
+// Force dynamic rendering for this page
+export const dynamic = 'force-dynamic'
+
 export default async function StaffPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
