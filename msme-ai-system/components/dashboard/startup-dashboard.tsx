@@ -27,6 +27,8 @@ import {
 } from "lucide-react"
 import type { Client, Project, Invoice, Profile } from "@/lib/types"
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+
 interface StartupDashboardProps {
   stats: any
   clients: Client[]
@@ -48,7 +50,7 @@ export function StartupDashboard({ stats, clients, projects, invoices, team }: S
       try {
         setLoading(true)
         setError(null)
-        const response = await fetch('http://localhost:8000/api/autonomous/status')
+        const response = await fetch(`${API_URL}/api/autonomous/status`)
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`)
@@ -85,7 +87,7 @@ export function StartupDashboard({ stats, clients, projects, invoices, team }: S
     setChecking(true)
     setEmailResult(null)
     try {
-      const response = await fetch('http://localhost:8000/api/autonomous/check-emails', {
+      const response = await fetch(`${API_URL}/api/autonomous/check-emails`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -100,7 +102,7 @@ export function StartupDashboard({ stats, clients, projects, invoices, team }: S
       setEmailResult(data)
 
       // Refresh status
-      const statusRes = await fetch('http://localhost:8000/api/autonomous/status')
+      const statusRes = await fetch(`${API_URL}/api/autonomous/status`)
       if (statusRes.ok) {
         const statusData = await statusRes.json()
         setEmailStatus(statusData)
